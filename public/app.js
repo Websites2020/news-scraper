@@ -1,3 +1,9 @@
+document.getElementById('frmSearch').onsubmit = function() {
+  window.location = 'http://www.google.com/search?q=site:www.huffingtonpost.com ' + document.getElementById('txtSearch').value;
+  return false;
+}
+
+
 $.getJSON("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {

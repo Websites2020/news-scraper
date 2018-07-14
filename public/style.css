@@ -1,0 +1,33 @@
+body {
+    background: darkblue;
+}
+
+.form-inline {
+    float: right;
+    margin: 5px;
+}
+
+button {
+    margin: 5px;
+}
+
+img {
+    margin: 0 0 20px 0;
+}
+
+#art {
+    background: white;
+    height: 400px;
+}
+
+#not {
+    background: white;
+    height: 400px;
+}
+
+footer {
+    color: white;
+    font-size: 10px;
+    text-align: center;
+    margin: 5px;
+}
