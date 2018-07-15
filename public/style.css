@@ -17,12 +17,27 @@ img {
 
 #art {
     background: white;
-    height: 400px;
+    height: 380px;
+    overflow: auto;
 }
 
-#not {
+/* #not {
     background: white;
     height: 400px;
+} */
+
+h2,
+h4 {
+    color: white;
+}
+
+input {
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
 }
 
 footer {
