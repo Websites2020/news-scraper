@@ -1,14 +1,15 @@
-// document.getElementById('frmSearch').onSubmit(function() {
-//   window.location = 'http://www.google.com/search?q=site:www.huffingtonpost.com ' + document.getElementById('txtSearch').value;
-//   return false;
-// });
+$(document).on("submit", "#frmSearch", function() {
+  window.location = 'http://www.google.com/search?q=site:www.huffingtonpost.com ' + document.getElementById('txtSearch').value;
+  return false;
+});
 
 $(document).on("click", "#show", function() {
+  $("#articles").empty();
 $.getJSON("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
       // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + "<b>" + data[i].title + "</b>" + "<button class='btn btn-primary' id='saveb' type='button' align='right' value='" + data[i]._id + "'>Save</button>" + "<br />" + data[i].description + "</p>" + "<a href=" + data[i].link + ">Read Article</a>");
+    $("#articles").append("<p data-id='" + data[i]._id + "'>" + "<img src='" + data[i].img + "'><b>" + data[i].title + "</b>" + "<button class='btn btn-primary' id='saveb' type='button' align='right' value='" + data[i]._id + "'>Save</button>" + "<br />" + data[i].description + "</p>" + "<a href=" + data[i].link + ">Read Article</a>");
   }
 
     $(document).on("click", "#saveb", function() {
@@ -50,7 +51,7 @@ $(document).on("click", "#saved", function() {
       // For each one
       for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-      $("#articles").append("<p data-id='" + data[i]._id + "'>" + "<b>" + data[i].title + "</b>" + "<button class='btn btn-danger' type='button' id='removeb' align='right' value='" + data[i]._id + "'>Remove</button>" + "<br />" + data[i].description + "</p>" + "<a href=" + data[i].link + ">Read Article</a>");
+      $("#articles").append("<p data-id='" + data[i]._id + "'>" + "<img src='" + data[i].img + "'><b>" + data[i].title + "</b>" + "<button class='btn btn-danger' type='button' id='removeb' align='right' value='" + data[i]._id + "'>Remove</button>" + "<br />" + data[i].description + "</p>" + "<a href=" + data[i].link + ">Read Article</a>");
       }
 
       $(document).on("click", "#removeb", function() {
@@ -144,4 +145,9 @@ $(document).on("click", "#saved", function() {
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
+  });
+
+  $(document).on("click", "#clear", function() {
+    // Empty the notes from the note section
+    $("#articles").empty();
   });
