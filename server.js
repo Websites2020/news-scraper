@@ -34,34 +34,35 @@ mongoose.connect("mongodb://localhost/week18Populater");
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
+  console.log("hello");
   // First, we grab the body of the html with request
   axios.get("https://www.huffingtonpost.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
-
+    console.log("hello2");
     // Now, we grab every h2 within an article tag, and do the following:
-    $(".card_headlines").each(function(i, element) {
+    $(".card__headline__text").each(function(i, element) {
       // Save an empty result object
+      
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-        .children()
-        .find("div.card__headline__text")
         .text();
       result.description = $(this)
         .children()
-        .find("a.card_link")
+        .find("card__link")
         .text();
       result.link = $(this)
         .children()
-        .find("a.card_link")
+        .find("card__link")
         .attr("href");
       result.img = $(this)
         .children()
         .find("img.card__img__src")
         .attr("src");
 
+        console.log(result);
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
