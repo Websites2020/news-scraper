@@ -40,8 +40,6 @@ $.getJSON("/articles", function(data) {
       // $("#bodyinput").val("");
     });
 
-  
-
   });
 });
 
@@ -150,4 +148,16 @@ $(document).on("click", "#saved", function() {
   $(document).on("click", "#clear", function() {
     // Empty the notes from the note section
     $("#articles").empty();
+  });
+
+  $(document).on("click", "#scrape", function() {
+    $("#articles").empty();
+    console.log('scraping')
+    $.get("/scrape", function(data) {
+        // For each one
+        for (var i = 0; i < data.length; i++) {
+          // Display the apropos information on the page
+        $("#articles").append("<p>Got Articles, see them by clicking the 'All Articles' button.");
+      }
+    })
   });
