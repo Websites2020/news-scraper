@@ -42,7 +42,7 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
     console.log("hello2");
     // Now, we grab every h2 within an article tag, and do the following:
-    $(".card__details").each(function(i, element) {
+    $(".card__content").each(function(i, element) {
       // Save an empty result object
       
       var result = {};
@@ -50,17 +50,27 @@ app.get("/scrape", function(req, res) {
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
         .children()
-        .find(".card__headline_text")
+        .children()
+        .children()
+        .find(".card__headline")
         .text();
       result.description = $(this)
+        .children()
+        .children()
+        .children()
         .children()
         .find(".card__link")
         .text();
       result.link = $(this)
         .children()
+        .children()
+        .children()
+        .children()
         .find(".card__link")
         .attr("href");
       result.img = $(this)
+        .children()
+        .children()
         .children()
         .find(".card__img__src")
         .attr("src");
