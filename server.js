@@ -28,8 +28,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
+mongoose.Promise = Promise;
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI||"mongodb://localhost/huffpost");
+
 
 
 // Routes
