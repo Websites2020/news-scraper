@@ -30,7 +30,7 @@ app.use(express.static("public"));
 
 mongoose.Promise = Promise;
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI||"mongodb://localhost/huffpost");
+mongoose.connect(process.env.MONGODB_URI||"mongodb://localhost/guardian");
 
 
 
@@ -40,45 +40,65 @@ mongoose.connect(process.env.MONGODB_URI||"mongodb://localhost/huffpost");
 app.get("/scrape", function(req, res) {
   console.log("hello");
   // First, we grab the body of the html with request
-  axios.get("https://www.huffingtonpost.com/").then(function(response) {
+  axios.get("https://www.theguardian.com/news/blog").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
     console.log("hello2");
     // Now, we grab every h2 within an article tag, and do the following:
-    $(".card__content").each(function(i, element) {
+    $(".fc-container__inner").each(function(i, element) {
       // Save an empty result object
       
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-        .children()
-        .children()
-        .children()
-        .find(".card__headline")
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+        .find("a")
         .text();
       result.description = $(this)
-        .children()
-        .children()
-        .children()
-        .children()
-        .find(".card__link")
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+        .find("a")
         .text();
       result.link = $(this)
-        .children()
-        .children()
-        .children()
-        .children()
-        .find(".card__link")
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+        .find("a")
         .attr("href");
       result.img = $(this)
-        .children()
-        .children()
-        .children()
-        .find(".card__img__src")
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .children()
+      .find(".responsive-img")
         .attr("src");
 
-        console.log(result);
+        console.log(result.img);
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
